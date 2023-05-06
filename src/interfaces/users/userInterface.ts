@@ -25,12 +25,12 @@ export interface UserData {
 }
 
 
-export interface LoginResponse {
-    data? : {
-        user : User,
-        token : string
-    }
-    error?: object
+export interface UserResponse {
+    error? : {
+        errors : any
+    },
+    token?: string,
+    user? : User,
 }
 export interface ParamsLoginService {
     data : object
@@ -38,6 +38,6 @@ export interface ParamsLoginService {
 }
 
 export interface UserHttpService {
-    login(data : ParamsLoginService) : Promise<LoginResponse>,
+    login(data : ParamsLoginService) : Promise<UserResponse>,
     logout() : Promise<object>
 }

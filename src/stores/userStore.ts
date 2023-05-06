@@ -1,6 +1,6 @@
 import axios from '../services/ClientAxios';
 import { defineStore } from 'pinia'
-import { User, UserStore } from '../interfaces/users/userInterface';
+import { UserResponse, User, UserStore } from '../interfaces/users/userInterface';
 import { Campañas } from '../interfaces/campañas/campañasInterface';
 
 export const useUserStore = defineStore('user', {
@@ -15,22 +15,25 @@ export const useUserStore = defineStore('user', {
         isAuth: false
      }),
     actions: {
-        setUser(user : User): void {
-            this.isAuth = true
-            this.user.id = user.id
-            this.user.name = user.name
-            this.user.email = user.email
-            this.user.rol_id = user.rol_id
-            this.user.campañas = user.campañas
-            this.user.permisos = user.permisos
-        },
+        setUser(payload : UserResponse){
+            const { user, token } = payload
+            if(token){
+                this.token = token
+                localStorage.setItem('token', token)
+            }
+            if(user){
+                this.user = user
+                this.isAuth = true
+            }
+        }
+        ,
         async currentUser () : Promise<User | null> {
             if (localStorage.getItem("token")) {
                 try {
                     const resServer = await axios.get<User>("/getUserInfo")
                     if (resServer?.data) {
                         const { data : user } = resServer;
-                        this.setUser(user)
+                        this.setUser({ user })
                         return user
                     }
                 } catch (error) {

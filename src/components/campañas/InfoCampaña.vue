@@ -31,17 +31,16 @@ import { toRefs } from "vue";
 import ShowComentarios from "../campañas/ShowComentarios.vue";
 import { Campañas } from "../../interfaces/campañas/campañasInterface";
 import { Comentarios } from "../../interfaces/campañas/comentariosInterface";
+import { InfoCampañaProps } from "../../typeProps/InfoCampañaProps"
 
-interface Props {
-    campaña : Campañas,
-    notShowUserName: boolean
-}
 
 // Props
-const props = defineProps<Props>();
+const props = defineProps({
+  ...InfoCampañaProps
+});
 
 // Creando una variable reactiva de la prop recibida
-const { campaña } = toRefs(props)
+const { campaña, notShowUserName } = toRefs(props)
 
 // Route 
 const route = useRoute()

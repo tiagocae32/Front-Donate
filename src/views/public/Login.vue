@@ -36,7 +36,7 @@ import { inputsLogin } from "../../utilityTypes/inputsLogin"
 const app = getCurrentInstance()?.appContext.config.globalProperties;
 
 // Store
-const userStore = useUserStore();
+const { setUser } = useUserStore();
 
 // Router
 const router = useRouter();
@@ -67,37 +67,28 @@ const login = async (): Promise<void> => {
         if(!isFormValid) return
 
         objLogin.value = {data : values as ParamsLoginService, url : 'login'}
-        const result = await makeRequest(objLogin.value);
+        await makeRequest(objLogin.value);
 };
 
 const loginGoogle = async ({credential} : ResponseGoogle) : Promise<void> => {
     const user = decodeCredential(credential) as userCredential;
     objLogin.value = {data : { email : user.email }, url: 'loginGoogle'}
-    const result = await makeRequest(objLogin.value)
-    console.log("result", result);
+    await makeRequest(objLogin.value)
 };
 
-const makeRequest  = async (data : ParamsLoginService) : Promise<void> => {
+const makeRequest  = async (dataParam : ParamsLoginService) : Promise<void> => {
     try {
-        const result = await userService.login(data)
-        if(result.error) throw result.error
-
-        setUserStoreAndRedirect(result.data.user)
-        localStorage.setItem("token", result.data.token)
-        console.log(result.data.user);
+        const { error, token, user } = await userService.login(dataParam)
+        if(error) throw error
+        setUser({user, token}) // store user
+        showAlert(app, "Success", "Login exitoso!", "success");
+        redirectUser(user)
     }catch (error : any) {
         showAlert(app, "Login Fallido", error, "error");
     }
 }
 
-const setUserStoreAndRedirect = (user : User): void => {
-
-    // Set data in store
-    userStore.setUser(user)
-
-    // User alerts
-    showAlert(app, "Success", "Login exitoso!", "success");
-
+const redirectUser = (user : User): void => {
     const roles_ids_users = [2,3]
 
     if (user.rol_id === 1) {

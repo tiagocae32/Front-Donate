@@ -1,5 +1,5 @@
 import axios from "../ClientAxios"
-import { UserHttpService,ParamsLoginService, LoginResponse } from "../../interfaces/users/userInterface";
+import { UserHttpService,ParamsLoginService, UserResponse } from "../../interfaces/users/userInterface";
 
 export class UserService implements UserHttpService {
 
@@ -13,9 +13,10 @@ export class UserService implements UserHttpService {
     return UserService.instance;
   }
 
-  async login(data: ParamsLoginService) : Promise<LoginResponse> {
+  async login(data: ParamsLoginService) : Promise<UserResponse> {
     try {
-      return await axios.post(data.url, data.data);
+      const resServer = await axios.post(data.url, data.data);
+      return resServer.data
     } catch (error : any) {
       return { error }
     }
