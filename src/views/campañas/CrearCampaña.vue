@@ -38,7 +38,7 @@
 
 <script lang="ts" setup>
 import axios from "../../services/ClientAxios";
-import { computed, getCurrentInstance, ref } from "vue";
+import { computed, getCurrentInstance, ref, onMounted } from "vue";
 import { Campañas } from "../../interfaces/campañas/campañasInterface";
 import { showAlert } from "../../helpers/showAlerts";
 import { useRouter } from "vue-router";
@@ -47,6 +47,13 @@ import { previewImage } from "../../helpers/previewImage";
 
 // Access to the this keyword
 const instanceThis = getCurrentInstance()?.appContext.config.globalProperties;
+
+// On Mounted Hook
+onMounted(() => {
+    setInterval(() => {
+        autoSaveCampaña()
+    }, 5000)   
+})
 
 // Variables
 const dataCampaña = ref<Campañas>({
@@ -75,6 +82,12 @@ const disabledSubmitButton = computed<boolean>(() => {
 });
 
 // Methods
+
+const autoSaveCampaña = () => {
+    console.log("auto save campaña");
+    console.log("data", dataCampaña.value);
+}
+
 const crearCampaña = async () : Promise<void> => {
     try {
         Object.entries(dataCampaña.value).forEach(([key, val]) => {
