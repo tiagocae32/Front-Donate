@@ -17,9 +17,14 @@ export const useUserStore = defineStore('user', {
     actions: {
         setUser(payload : UserResponse){
             const { user, token } = payload
-            if(token){
-                this.token = token
-                localStorage.setItem('token', token)
+            const tokenStorage = localStorage.getItem('token')
+            if(tokenStorage){
+                this.token = tokenStorage
+            }else {
+                if(token){
+                    this.token = token
+                    localStorage.setItem('token', token)
+                }
             }
             if(user){
                 this.user = user
@@ -33,7 +38,7 @@ export const useUserStore = defineStore('user', {
                     const resServer = await axios.get<User>("/getUserInfo")
                     if (resServer?.data) {
                         const { data : user } = resServer;
-                        this.setUser({ user })
+                        this.setUser({ user  })
                         return user
                     }
                 } catch (error) {
