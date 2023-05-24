@@ -40,7 +40,7 @@ const { inputs } = toRefs(props)
 
 // Emits
 const emit = defineEmits<{
-  (e: "dataBack", data: object): void;
+  dataBack : [data : object]
 }>();
 
 

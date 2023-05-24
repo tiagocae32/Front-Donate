@@ -5,7 +5,12 @@ const env = loadEnv("mock", process.cwd(), "");
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue()
+    vue({
+      script : {
+        defineModel : true,
+        propsDestructure : true
+      }
+    })
   ],
   server: {
     port: Number(env.VUE_PORT_CLIENT),

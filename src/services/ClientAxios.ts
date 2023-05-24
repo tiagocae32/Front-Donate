@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-//import {baseURL} from "./BaseUrl";
+import { baseURL } from "./BaseUrl";
 
 const clientAxios = axios.create({
-    baseURL : "http://localhost:8000/api/donate"
+    baseURL
 })
 
 clientAxios.interceptors.request.use((config: AxiosRequestConfig) => {
