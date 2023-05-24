@@ -32,12 +32,8 @@ export interface UserResponse {
     token?: string,
     user? : User,
 }
-export interface ParamsLoginService {
-    data : object
-    url : string
-}
 
 export interface UserHttpService {
-    login(data : ParamsLoginService) : Promise<UserResponse>,
+    login(data : UserData) : Promise<UserResponse>,
     logout() : Promise<object>
 }

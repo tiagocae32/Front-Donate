@@ -3,6 +3,7 @@ import { Validations } from "../validations/validationFormInterface";
 
 
 export interface BaseProps {
+        key : string,
         type : InputsTypes,
         validations?: Validations,
         placeholder? : string,
@@ -13,6 +14,4 @@ export interface BaseProps {
 
 export interface PropsInput extends BaseProps {}
 
-export interface GeneratedInputs extends PropsInput {
-        key?: string;
-}
+export interface GeneratedInputs extends PropsInput {}

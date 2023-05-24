@@ -25,7 +25,7 @@
 import { getCurrentInstance, ref } from "vue";
 import { UserService } from "../../services/auth/Auth";
 import { useUserStore } from "../../stores/userStore";
-import { ParamsLoginService, User } from "../../interfaces/users/userInterface";
+import { User } from "../../interfaces/users/userInterface";
 import { useRouter } from "vue-router";
 import { decodeCredential } from "vue3-google-login";
 import { showAlert } from "../../helpers/showAlerts";
@@ -50,11 +50,6 @@ interface userCredential {
     email : string
 }
 
-let objLogin = ref<ParamsLoginService>({
-    data : {},
-    url : ""
-});
-
 // User instance 
 const userService = UserService.getInstance
 
@@ -62,21 +57,17 @@ const userService = UserService.getInstance
 const refFormGeneric = ref<InstanceType<typeof FormGeneric> | null>(null)
 
 const login = async (): Promise<void> => {
-        const { isFormValid, values } = refFormGeneric.value.processDataBack();
-        console.log("is valid", isFormValid, "values", values);
+        const { isFormValid, data } = refFormGeneric.value.processformValues();
         if(!isFormValid) return
-
-        objLogin.value = {data : values as ParamsLoginService, url : 'login'}
-        await makeRequest(objLogin.value);
+        await makeRequest({ data  , url : 'login'});
 };
 
 const loginGoogle = async ({credential} : ResponseGoogle) : Promise<void> => {
     const user = decodeCredential(credential) as userCredential;
-    objLogin.value = {data : { email : user.email }, url: 'loginGoogle'}
-    await makeRequest(objLogin.value)
+    await makeRequest({data : { email : user.email }, url: 'loginGoogle'})
 };
 
-const makeRequest  = async (dataParam : ParamsLoginService) : Promise<void> => {
+const makeRequest  = async (dataParam) : Promise<void> => {
     try {
         const { error, token, user } = await userService.login(dataParam)
         if(error) throw error

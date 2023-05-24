@@ -1,10 +1,10 @@
 <template>
 
     <div v-for="(input, index) in getInputs" :key="index">
-        <div v-if="input.type === 'text' || input.type === 'password'">
+        <div v-if="input.type === 'text' || input.type === 'email' || input.type === 'password'">
                 <InputText
-                   :value="dataBack[input.key]"
-                   v-model:model-value="dataBack[input.key]"
+                   :value="formValues[input.key]"
+                   v-model:model-value="formValues[input.key]"
                    :type="input.type"
                    :placeholder="input.placeholder"
                    :state="input.hasOwnProperty('state') ? (input.state ?? null) : null"
@@ -23,17 +23,23 @@
 import InputText from '../components/form/InputText.vue';
 import { isEmpty } from '../helpers/validations';
 import { Validator } from '../helpers/validator';
-import { GeneratedInputs} from '../interfaces/form/PropsForm';
-import { ComputedRef, computed, ref, toRefs } from 'vue';
+import { PropsInput } from '../interfaces/form/PropsForm';
+import { ComputedRef, PropType, computed, ref, toRefs } from 'vue';
 
 // Props
-interface Props<K extends string > {
+/*interface Props<K extends string > {
   inputs: {
     [key in K]: GeneratedInputs; // Keys dinamicas
   };
-}
+}*/
 
-const props = defineProps<Props<string>>()
+const props = defineProps({
+  inputs: {
+    type: Array as PropType<PropsInput[]>,
+    required: true
+  },
+})
+
 const { inputs } = toRefs(props)
 
 // End Props
@@ -44,48 +50,50 @@ const emit = defineEmits<{
 }>();
 
 
-const generateForm = ref<Array<GeneratedInputs>>([]);
-const dataBack = ref<object>({});
+const generateForm = ref<Array<PropsInput>>([]);
+const formValues = ref<object>({});
 
 // Computed properties
-const getInputs: ComputedRef<Array<GeneratedInputs>> = computed<Array<GeneratedInputs>>(() => {
-        Object.keys(inputs.value).forEach(key => {
-        const index : number = generateForm.value.map((input) => input.key).indexOf(key);
-        if (index > -1) {
-        // mergeo lo que tengo con lo que viene
-        generateForm.value[index] = {
-                ...generateForm.value[index],
-                ...inputs.value[key],
-        };
-        if (inputs.value[key].value) {
-            dataBack.value[key] = inputs.value[key].value;
-        }
-    } else {
-      // si no existe, agrego el input
-      generateForm.value.push({ ...inputs.value[key], key });
+const getInputs: ComputedRef<Array<PropsInput>> = computed<Array<PropsInput>>(() => {
 
-      // Inicializando en el objeto databBack las keys correspondientes 
-      // a cada input
-      Object.defineProperty(dataBack.value, key, {
-        enumerable: true,
-        configurable: true,
-        writable: true,
-        value: {}
-      });
+        inputs.value.forEach(({key}, inputIndex) => {
+          const inputExists : boolean = generateForm.value.some(input => input.key === key)//.map((input) => input.key).indexOf(key);
 
-      // si viene con valor, lo seteo
-      dataBack.value[key] = inputs.value[key].value ?? null
-    }
-  })
-    return generateForm.value
+          if(inputExists){
+            generateForm.value[inputIndex] = {
+                ...generateForm.value[inputIndex],
+                ...inputs.value[inputIndex],
+            };
+            if (inputs.value[inputIndex].value) {
+            formValues.value[key] = inputs.value[inputIndex].value;
+            }
+          }else {
+            // si no existe, agrego el input
+            generateForm.value.push({ ...inputs.value[inputIndex], key });
+
+            // Inicializando en el objeto databBack las keys correspondientes 
+            // a cada input
+            Object.defineProperty(formValues.value, key, {
+              enumerable: true,
+              configurable: true,
+              writable: true,
+              value: {}
+            });
+
+            // si viene con valor, lo seteo
+            formValues.value[key] = inputs.value[inputIndex]?.value ?? null
+          }
+        })
+
+        return generateForm.value;
 })
 
 // Methods
 const setError = (value : boolean,index : number) => generateForm.value[index].state = value;
 
 const getDataForm = (data : string , key : string) => {
-  dataBack.value = {...dataBack.value, [key] : data}
-  emit('dataBack', dataBack.value)
+  formValues.value = {...formValues.value, [key] : data}
+  emit('dataBack', formValues.value)
 };
 
 
@@ -98,7 +106,7 @@ const isFormValid = () : boolean => {
   Object.keys(generateForm.value).forEach((_,index) => {
     const actualInput = generateForm.value[index]
     if(actualInput.validations){
-      validator.validate(dataBack.value[actualInput.key], actualInput.validations.rules)
+      validator.validate(formValues.value[actualInput.key], actualInput.validations.rules)
       if(!isEmpty(validator.getErrors)){
         generateForm.value[index].errors = validator.getErrors;
         result = false;
@@ -108,17 +116,17 @@ const isFormValid = () : boolean => {
   return result;
 }
 
-const getValues = () : object => dataBack.value
+const getValues = () : object => formValues.value
 
-const processDataBack = ()  => {
+const processformValues = ()  => {
   return {
     'isFormValid' : isFormValid(),
-    'values' : getValues()
+    'data' : getValues()
   }
 
 }
 
 // Haciendo accesibles los metodos, para que el componente padre pueda utilizarlo
-defineExpose({processDataBack})
+defineExpose({ processformValues })
 
 </script>

@@ -1,6 +1,6 @@
-import { isEmpty } from "@/helpers/validations";
-import { Validator } from "@/helpers/validator";
-import { Validations } from "@/interfaces/validations/validationFormInterface";
+import { isEmpty } from "../helpers/validations";
+import { Validator } from "../helpers/validator";
+import { Validations } from "../interfaces/validations/validationFormInterface";
 import { computed, ref } from "vue";
 
 
