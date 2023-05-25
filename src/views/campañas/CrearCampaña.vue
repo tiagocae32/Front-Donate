@@ -50,9 +50,11 @@ const instanceThis = getCurrentInstance()?.appContext.config.globalProperties;
 
 // On Mounted Hook
 onMounted(() => {
-    setInterval(() => {
-        autoSaveCampaña()
-    }, 5000)   
+    /*
+        setInterval(() => {
+            autoSaveCampaña()
+        }, 5000)
+    */   
 })
 
 // Variables
@@ -100,6 +102,8 @@ const crearCampaña = async () : Promise<void> => {
         });
 
         const resServer = await axios.post<Campañas>("/crearCampania",formData);
+
+        console.log(resServer);
 
         if(resServer?.data){
             // User alerts

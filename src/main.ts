@@ -5,7 +5,7 @@ import App from './App.vue'
 import { useUserStore } from "./stores/userStore"
 import vue3GoogleLogin from 'vue3-google-login'
 import VueSweetalert2 from 'vue-sweetalert2';
-import BootstrapVue3 from "bootstrap-vue-3";
+import BootstrapVue3 from "bootstrap-vue-next";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 import 'sweetalert2/dist/sweetalert2.min.css';

@@ -1,14 +1,13 @@
 <template>
 
     <div>
-      <b-form-input
+      <BFormInput
         :modelValue="value"
         :type="inputType"
         :placeholder="placeholder"
         :state="state !== null ? !state : null"
         @input="onChange($event)"
     />
-
 
     <ErrorsForm :error-messages="errorMessages"/>
     </div>
@@ -17,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { InputType } from 'bootstrap-vue-3';
+import { InputType } from 'bootstrap-vue-next';
 import { computed, reactive , toRefs, watch} from 'vue';
 import ErrorsForm from "../../components/errors/ErrorsForm.vue" 
 import { useError } from '../../composables/useError';

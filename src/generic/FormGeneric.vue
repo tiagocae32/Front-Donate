@@ -14,6 +14,12 @@
                    @onChange="getDataForm($event,input.key as keyof object)"
                 />
         </div>
+
+        <div v-if="input.type === 'file'">
+          <InputFile
+          
+          />
+        </div>
     </div>
 
 </template>
@@ -21,6 +27,7 @@
 
 <script lang="ts" setup>
 import InputText from '../components/form/InputText.vue';
+import InputFile from "../components/form/InputFile.vue";
 import { isEmpty } from '../helpers/validations';
 import { Validator } from '../helpers/validator';
 import { PropsInput } from '../interfaces/form/PropsForm';
