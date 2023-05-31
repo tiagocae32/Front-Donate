@@ -1,7 +1,7 @@
 <template>
     <h3 v-if="imagenes?.length > 0">Imagenes</h3>
-    <li v-for="{ image, id } in imagenes" :key="id">
-        <img :src="`${urlImage}${params.campania_id}/${image}`" width="200" height="200" alt="No image campaña" />
+    <li v-for="{ path , id } in imagenes" :key="id">
+        <img :src="`${urlImage}${params.campania_id}/${path}`" width="200" height="200" alt="No image campaña" />
     </li>
 </template>
 
