@@ -21,7 +21,7 @@ import axios from "../../services/ClientAxios";
 import { useRouter } from "vue-router";
 import { showAlert } from "../../helpers/showAlerts";
 import { User } from "../../interfaces/users/userInterface";
-import { inputsRegister } from "../../utilityTypes/inputsRegister";
+import { inputsRegister } from "../../inputs-form/user/inputsRegister";
 import FormGeneric from "@/generic/FormGeneric.vue";
 import { convertObjToFormData } from "../../helpers/convertObjToFormData"
 
@@ -42,28 +42,27 @@ const disableButton = ref<boolean>(false)
 //const getDataForm = (data : UserData) => userData.value = {...data};
 
 const userRegister = async (): Promise<void | null> => {
+        
         try {
-
-            const { isFormValid, data } = refFormGeneric.value.processformValues();
-            console.log("data", data);
+            let { isFormValid, data } = refFormGeneric.value.processformValues();
             if(!isFormValid) return
 
-            const dataTest = convertObjToFormData(data);
+            if(data.images){
+                data = convertObjToFormData(data);
+            }
 
-            console.log("data test", dataTest);
+            const resServer = await axios.post<User>("/registrarUsuario", data);
 
-            const resServer = await axios.post<User>("/registrarUsuario", dataTest);
-
-            // User alerts
-            showAlert(app, "Success", "Registro exitoso!", "success");
-
-            if (resServer.data) {
+            if(resServer?.status === 200 || resServer?.status === 201){
+                // User alerts
+                showAlert(app, "Success", "Registro exitoso!", "success");
                 router.replace({ name: "authLogin" });
             }
+
         } catch (error) {
             showAlert(app, "Registro fallido", error, "error");
             return null;
-    }
+        }
 }
 
 </script>

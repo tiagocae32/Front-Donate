@@ -30,7 +30,7 @@ import { useRouter } from "vue-router";
 import { decodeCredential } from "vue3-google-login";
 import { showAlert } from "../../helpers/showAlerts";
 import FormGeneric from "../../generic/FormGeneric.vue";
-import { inputsLogin } from "../../utilityTypes/inputsLogin"
+import { inputsLogin } from "../../inputs-form/user/inputsLogin"
 
 // Access to the this keyword
 const app = getCurrentInstance()?.appContext.config.globalProperties;

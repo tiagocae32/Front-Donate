@@ -1,4 +1,4 @@
-import { PropsInput } from "../interfaces/form/PropsForm";
+import { PropsInput } from "../../interfaces/form/PropsForm";
 import { ref } from "vue";
 
 // Using Record Types

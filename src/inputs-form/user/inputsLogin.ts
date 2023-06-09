@@ -1,11 +1,11 @@
-import { PropsInput } from "../interfaces/form/PropsForm";
+import { GeneratedInputs} from "../../interfaces/form/PropsForm";
 import { ref } from "vue";
 
 // Using Record Types
 //type KeysLogin = "name" | "password";
 //type InputsFormGeneric = Record<KeysLogin, PropsInput>
 
-export const inputsLogin = ref<PropsInput[]>([
+export const inputsLogin = ref<GeneratedInputs[]>([
         {
             key : "name",
             type : "text",

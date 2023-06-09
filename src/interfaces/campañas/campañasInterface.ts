@@ -4,7 +4,7 @@ import { Imagenes } from "./imagenesInterface"
 export interface Campañas {
     id?: number,
     name: string,
-    description: string,
+    descripcion: string,
     fondos_a_recaudar: number,
     fondos_recaudado_actual? : number,
     user_id?: Number,

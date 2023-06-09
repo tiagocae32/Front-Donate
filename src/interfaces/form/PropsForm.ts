@@ -12,6 +12,6 @@ export interface BaseProps {
         errors?: Array<string>;
 }
 
-export interface PropsInput extends BaseProps {}
+//export interface PropsInput extends BaseProps {}
 
-export interface GeneratedInputs extends PropsInput {}
+export interface GeneratedInputs extends BaseProps {}
