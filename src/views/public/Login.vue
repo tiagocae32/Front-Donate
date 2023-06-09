@@ -67,7 +67,7 @@ const loginGoogle = async ({credential} : ResponseGoogle) : Promise<void> => {
     await makeRequest({data : { email : user.email }, url: 'loginGoogle'})
 };
 
-const makeRequest  = async (dataParam) : Promise<void> => {
+const makeRequest  = async (dataParam : object) : Promise<void> => {
     try {
         const { error, token, user } = await userService.login(dataParam)
         if(error) throw error

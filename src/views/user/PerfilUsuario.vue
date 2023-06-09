@@ -6,7 +6,7 @@
             <button v-if="!isEdit" @click="isEdit = true">Editar</button>
             <button v-else @click="closeEdit">X</button>
             <div v-if="!isEdit">
-                <p>User name: {{user.nombre}}</p>
+                <p>Nombre de usuario: {{user.nombre}}</p>
                 <p>Email: {{user.email}} </p>
             </div>
             <div v-else>

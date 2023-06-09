@@ -50,7 +50,7 @@ const store = useUserStore()
 const { params } = useRoute()
 
 // Local Variables 
-const campaña = ref<Campañas>({usuario: {nombre: ""},descripcion: "", fondos_a_recaudar: 0, fondos_recaudado_actual: 0, imagenes : [],name: "" })
+const campaña = ref<Campañas>({usuario: {nombre: ""},descripcion: "", fondos_a_recaudar: 0, fondos_recaudado_actual: 0, imagenes : [],nombre: "" })
 const idCampaña = Number(params.campania_id)
 const showButtonDownloadPdf = ref<boolean>(true)
 
