@@ -5,6 +5,6 @@ export interface Comentarios {
     comentario: string,
     created_at : Date,
     user : {
-        nombre : string
+        name : string
     }
 }

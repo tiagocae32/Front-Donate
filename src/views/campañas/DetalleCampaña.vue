@@ -7,8 +7,8 @@
         </div>
 
         <div>
-            <li>Campaña creada por: {{ campaña?.usuario?.nombre }}</li>
-            <li>Nombre: {{ campaña?.nombre }}</li>
+            <li>Campaña creada por: {{ campaña?.usuario?.name }}</li>
+            <li>Nombre: {{ campaña?.name }}</li>
             <li>Descripcion: {{ campaña?.descripcion }}</li>
             <li>Fondos a recaudar: {{ campaña?.fondos_a_recaudar }}$</li>
             <li>Fondos recaudados: {{ campaña?.fondos_recaudado_actual }}$</li>
@@ -50,7 +50,7 @@ const store = useUserStore()
 const { params } = useRoute()
 
 // Local Variables 
-const campaña = ref<Campañas>({usuario: {nombre: ""},descripcion: "", fondos_a_recaudar: 0, fondos_recaudado_actual: 0, imagenes : [],nombre: "" })
+const campaña = ref<Campañas>({usuario: {name: ""},descripcion: "", fondos_a_recaudar: 0, fondos_recaudado_actual: 0, imagenes : [],name: "" })
 const idCampaña = Number(params.campania_id)
 const showButtonDownloadPdf = ref<boolean>(true)
 

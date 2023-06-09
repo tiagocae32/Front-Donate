@@ -9,10 +9,10 @@ export const inputsRegister = ref<GeneratedInputs[]>(
     
     [
         {
-            key : "nombre",
+            key : "name",
             type : "text",
             validations : {rules : {required : true, minLength : 6}},
-            placeholder : "nombre de usuario",
+            placeholder : "name de usuario",
             value : null
             
         },

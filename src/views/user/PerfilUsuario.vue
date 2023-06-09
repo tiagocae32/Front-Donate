@@ -6,7 +6,7 @@
             <button v-if="!isEdit" @click="isEdit = true">Editar</button>
             <button v-else @click="closeEdit">X</button>
             <div v-if="!isEdit">
-                <p>Nombre de usuario: {{user.nombre}}</p>
+                <p>Nombre de usuario: {{user.name}}</p>
                 <p>Email: {{user.email}} </p>
             </div>
             <div v-else>
@@ -46,14 +46,14 @@ const user = computed<User>(() => store.getUser);
 const isEdit = ref<boolean>(false)
 
 const userEdit = ref({
-    usuario : user.value.nombre,
+    usuario : user.value.name,
     email: user.value.email
 })
 
 // Methods
 const closeEdit = () => {
     isEdit.value = false
-    userEdit.value.usuario = user.value.nombre
+    userEdit.value.usuario = user.value.name
     userEdit.value.email = user.value.email
 }
 
@@ -65,7 +65,7 @@ const editarUsuario = async () : Promise<void> => {
         user.value[key] = data[key]
     })*/
 
-    user.value.nombre = data.nombre
+    user.value.name = data.name
     user.value.email = data.email
 
     isEdit.value = false

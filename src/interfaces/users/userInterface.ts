@@ -4,7 +4,7 @@ import { Rol } from "./rolInterface";
 
 export interface User {
      id?: number,
-     nombre: string | null;
+     name: string | null;
      email?: string | null;
      rol_id: number | null,
      created_at? : Date,
@@ -19,7 +19,7 @@ export interface UserStore {
 }
 
 export interface UserData {
-    nombre : string,
+    name : string,
     contraseña : string,
     email? : string
 }

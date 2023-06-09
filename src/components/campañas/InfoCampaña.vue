@@ -6,9 +6,9 @@
         </strong>
         <button v-if="route.name === 'misCampañas'" @click="eliminarCampaña">Eliminar campaña</button>
         <li v-if="campaña.user && !notShowUserName">
-            Campaña creada por: {{ campaña.user.nombre }}
+            Campaña creada por: {{ campaña.user.name }}
         </li>
-        <li>Nombre: {{ campaña?.nombre }}</li>
+        <li>Nombre: {{ campaña?.name }}</li>
         <li>Descripcion: {{ campaña?.descripcion }}</li>
         <li>Fondos a recaudar: {{ campaña?.fondos_a_recaudar }}$</li>
         <li>Fondos recaudados: {{ campaña?.fondos_recaudado_actual }}$</li>
