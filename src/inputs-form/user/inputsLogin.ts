@@ -7,18 +7,18 @@ import { ref } from "vue";
 
 export const inputsLogin = ref<GeneratedInputs[]>([
         {
-            key : "name",
+            key : "nombre",
             type : "text",
             validations : {rules : {required : true}},
-            placeholder : "username",
+            placeholder : "nombre de usuario",
             value : null
             
         },
         {
-            key: 'password',
+            key: 'contraseña',
             type : "password",
             validations : {rules : {required : true}},
-            placeholder : "password",
+            placeholder : "contraseña",
             value : null
         }
 ])

@@ -2,7 +2,7 @@
   <div v-if="isAuth" @submit.prevent="logOut">
       <form>
           <p>
-              Usuario activo: {{ user.name}}
+              Usuario activo: {{ user.nombre}}
               <strong v-if="user.rol_id === 1">Admin</strong>
           </p>
           <button>Log out</button>

@@ -4,7 +4,7 @@ import { ref } from "vue";
 
 export const inputsCrearCampaña = ref<GeneratedInputs[]>([
         {
-            key : "name",
+            key : "nombre",
             type : "text",
             validations : {rules : {required : true}},
             placeholder : "nombre de la campaña",

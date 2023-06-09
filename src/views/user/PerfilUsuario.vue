@@ -6,11 +6,11 @@
             <button v-if="!isEdit" @click="isEdit = true">Editar</button>
             <button v-else @click="closeEdit">X</button>
             <div v-if="!isEdit">
-                <p>User name: {{user.name}}</p>
+                <p>User name: {{user.nombre}}</p>
                 <p>Email: {{user.email}} </p>
             </div>
             <div v-else>
-                <input type="text"  v-model="userEdit.user">
+                <input type="text"  v-model="userEdit.usuario">
                 <input type="text" v-model="userEdit.email">
                 <button @click="editarUsuario">Editar</button>
             </div>
@@ -27,7 +27,7 @@
 
 <script lang="ts" setup>
 import { computed,ref } from "vue";
-import { User } from "@/interfaces/users/userInterface";
+import { User } from "../../interfaces/users/userInterface";
 import { useUserStore } from "../../stores/userStore";
 import axios from "../../services/ClientAxios"
 import { useRoute } from "vue-router";
@@ -46,14 +46,14 @@ const user = computed<User>(() => store.getUser);
 const isEdit = ref<boolean>(false)
 
 const userEdit = ref({
-    user : user.value.name,
+    usuario : user.value.nombre,
     email: user.value.email
 })
 
 // Methods
 const closeEdit = () => {
     isEdit.value = false
-    userEdit.value.user = user.value.name
+    userEdit.value.usuario = user.value.nombre
     userEdit.value.email = user.value.email
 }
 
@@ -65,7 +65,7 @@ const editarUsuario = async () : Promise<void> => {
         user.value[key] = data[key]
     })*/
 
-    user.value.name = data.name
+    user.value.nombre = data.nombre
     user.value.email = data.email
 
     isEdit.value = false

@@ -17,9 +17,9 @@
 
         <div>
             <h3>Usuarios del sistema: {{ users.length }}</h3>
-            <ul v-for="{id,name,email,campañas,rol:{rol}, created_at} in users" :key="id">
+            <ul v-for="{id, nombre,email,campañas,rol:{rol}, created_at} in users" :key="id">
                 <li>
-                    Name - {{ name }} | Email {{ email }} | Numero de
+                    Name - {{ nombre }} | Email {{ email }} | Numero de
                     campañas creadas: {{ campañas?.length }}
                     | Rol : {{rol}} | Fecha de creacion: {{new Date(created_at).toLocaleString()}}
                 </li>

@@ -6,7 +6,7 @@
         </p>
         <ul v-for="comentario in comentarios" :key="comentario.id">
             <li>Comentario: {{ comentario.comentario }}</li>
-            <li>Escrito por: {{ comentario.user.name }}</li>
+            <li>Escrito por: {{ comentario.user.nombre }}</li>
             <li> Fecha: {{ new Date(comentario.created_at).toLocaleString() }}</li>
             <hr>
             <!--Solo el usuario que realizao el comentario, lo puede eliminar-->

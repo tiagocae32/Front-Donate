@@ -3,13 +3,13 @@ import { Imagenes } from "./imagenesInterface"
 
 export interface Campañas {
     id?: number,
-    name: string,
+    nombre: string,
     descripcion: string,
     fondos_a_recaudar: number,
     fondos_recaudado_actual? : number,
-    user_id?: Number,
-    user?: {
-        name : string
+    usuario_id?: Number,
+    usuario?: {
+        nombre : string
     },
     comentarios?: Array<Comentarios>
     imagenes: Array<Imagenes>

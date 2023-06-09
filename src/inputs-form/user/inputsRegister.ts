@@ -1,18 +1,18 @@
-import { PropsInput } from "../../interfaces/form/PropsForm";
+import { GeneratedInputs } from "../../interfaces/form/PropsForm";
 import { ref } from "vue";
 
 // Using Record Types
 //type KeysLogin = "name" | "email" | "password";
 //type InputsFormGeneric = Record<KeysLogin, PropsInput>
 
-export const inputsRegister = ref<PropsInput[]>(
+export const inputsRegister = ref<GeneratedInputs[]>(
     
     [
         {
-            key : "name",
+            key : "nombre",
             type : "text",
             validations : {rules : {required : true, minLength : 6}},
-            placeholder : "username",
+            placeholder : "nombre de usuario",
             value : null
             
         },
@@ -24,10 +24,10 @@ export const inputsRegister = ref<PropsInput[]>(
             value : null
         },
         {
-            key : "password",
+            key : "contraseña",
             type : "password",
             validations : {rules : {required : true}},
-            placeholder : "password",
+            placeholder : "contraseña",
             value : null
         },
         {

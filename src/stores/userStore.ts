@@ -6,7 +6,7 @@ import { Campañas } from '../interfaces/campañas/campañasInterface';
 export const useUserStore = defineStore('user', {
     state: () : UserStore => ({ 
         user: {
-            name: null,
+            nombre: null,
             email: null,
             rol_id: null,
             campañas: [],
