@@ -22,10 +22,8 @@ import { useRouter } from "vue-router";
 import { showAlert } from "../../helpers/showAlerts";
 import { User } from "../../interfaces/users/userInterface";
 import { inputsRegister } from "../../utilityTypes/inputsRegister";
-//import { GeneratedInputs } from "../../interfaces/form/PropsForm";
-//import { checkInputsError } from "../../helpers/inputsError";
 import FormGeneric from "@/generic/FormGeneric.vue";
-
+import { convertObjToFormData } from "../../helpers/convertObjToFormData"
 
 // Access to the this keyword
 const app = getCurrentInstance()?.appContext.config.globalProperties;
@@ -35,14 +33,6 @@ const refFormGeneric = ref<InstanceType<typeof FormGeneric> | null>(null)
 
 // Router
 const router = useRouter();
-
-// Form data
-/*const userData = ref<UserData>({
-    name: "",
-    email: "",
-    password: "",
-});
-*/
 
 // Methods
 
@@ -55,9 +45,14 @@ const userRegister = async (): Promise<void | null> => {
         try {
 
             const { isFormValid, data } = refFormGeneric.value.processformValues();
+            console.log("data", data);
             if(!isFormValid) return
 
-            const resServer = await axios.post<User>("/registrarUsuario", data);
+            const dataTest = convertObjToFormData(data);
+
+            console.log("data test", dataTest);
+
+            const resServer = await axios.post<User>("/registrarUsuario", dataTest);
 
             // User alerts
             showAlert(app, "Success", "Registro exitoso!", "success");

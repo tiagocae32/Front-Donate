@@ -29,5 +29,9 @@ export const inputsRegister = ref<PropsInput[]>(
             validations : {rules : {required : true}},
             placeholder : "password",
             value : null
+        },
+        {
+            key : "images", 
+            type: "file"
         }
 ])

@@ -95,6 +95,7 @@ const crearCampaña = async () : Promise<void> => {
         Object.entries(dataCampaña.value).forEach(([key, val]) => {
             if (key !== "images") formData.append(key, val);
             else {
+                console.log(dataCampaña.value[key]);
                 dataCampaña.value[key].forEach((file, index: Number) => {
                     formData.append(`images[${index}]`, file);
                 });

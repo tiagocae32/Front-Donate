@@ -17,7 +17,7 @@
 
         <div v-if="input.type === 'file'">
           <InputFile
-          
+            @onChange="setFiles"
           />
         </div>
     </div>
@@ -52,9 +52,10 @@ const { inputs } = toRefs(props)
 // End Props
 
 // Emits
-const emit = defineEmits<{
+/*const emit = defineEmits<{
   dataBack : [data : object]
 }>();
+*/
 
 
 const generateForm = ref<Array<PropsInput>>([]);
@@ -92,20 +93,18 @@ const getInputs: ComputedRef<Array<PropsInput>> = computed<Array<PropsInput>>(()
           }
         })
 
+        console.log("s", generateForm.value);
         return generateForm.value;
 })
 
 // Methods
 const setError = (value : boolean,index : number) => generateForm.value[index].state = value;
 
-const getDataForm = (data : string , key : string) => {
+const getDataForm = (data : string | Array<File> , key : string) => {
   formValues.value = {...formValues.value, [key] : data}
-  emit('dataBack', formValues.value)
 };
 
-
 // Validator
-
 const validator = new Validator();
 
 const isFormValid = () : boolean => {
@@ -130,7 +129,14 @@ const processformValues = ()  => {
     'isFormValid' : isFormValid(),
     'data' : getValues()
   }
+}
 
+
+const setFiles = (files) => {
+  formValues.value.images = []
+  Object.values(files).forEach(async (file) => {
+        formValues.value.images.push(file)
+  });
 }
 
 // Haciendo accesibles los metodos, para que el componente padre pueda utilizarlo
