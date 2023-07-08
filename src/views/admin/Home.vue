@@ -25,6 +25,14 @@
                 </li>
             </ul>
         </div>
+
+        <div>
+            Data Providers
+
+            <div>
+                <b-button variant="primary" @click="dataProvider('users')">Usuarios</b-button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -70,6 +78,15 @@ const limpiarBusqueda = () : void => {
     isSearch.value = false;
     cleanInput.value = true;
 };
+
+
+const dataProvider = async (model) => {
+    console.log("aaaa", model);
+
+    const resServer = await axios.get(`dataProviders?models=${model}`)
+    console.log("res server", resServer);
+}
+
 </script>
 
 <style></style>
