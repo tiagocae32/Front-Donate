@@ -30,7 +30,7 @@
             Data Providers
 
             <div>
-                <b-button variant="primary" @click="dataProvider('users')">Usuarios</b-button>
+                <b-button v-for="{key,value} in models" :key="key" variant="primary" @click="dataProvider(key)">{{ value }}</b-button>
             </div>
         </div>
     </div>
@@ -47,11 +47,20 @@ onMounted(() => {
     loadUsers();
 });
 
+interface ButtonsDataProviders {
+    key : string,
+    value : string
+}
+
 // Variables
 const users = ref<Array<User>>([]);
 const refOriginalValuesUser = ref<Array<User>>([]);
 const isSearch = ref<boolean>(false);
 const cleanInput = ref<boolean>(false);
+const models = ref<ButtonsDataProviders[]>([
+    {key : 'users', value: 'Usuarios'},
+    {key : 'campañas', value : "Campañas"}
+]);
 
 // Methods
 const loadUsers = async (): Promise<void> => {
